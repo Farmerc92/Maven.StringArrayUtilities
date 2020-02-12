@@ -72,12 +72,7 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        if (Arrays.equals(reverse(array), array)){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return Arrays.equals(reverse(array), array);
     }
 
     /**
@@ -93,21 +88,16 @@ public class StringArrayUtils {
         for (char[] word : newArray){
             for (char letter : word) {
                 if (alphabet.contains(letter)){
-                    int index = alphabet.lastIndexOf((char)letter);
+                    int index = alphabet.lastIndexOf(letter);
                     alphabet.remove(index);
                 }
                 else if (alphabet.contains(Character.toLowerCase(letter))) {
-                    int index = alphabet.lastIndexOf((char)Character.toLowerCase(letter));
+                    int index = alphabet.lastIndexOf(Character.toLowerCase(letter));
                     alphabet.remove(index);
                 }
             }
         }
-        if (alphabet.size() == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return alphabet.size() == 0;
     }
 
     /**
