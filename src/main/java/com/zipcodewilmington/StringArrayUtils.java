@@ -120,34 +120,73 @@ public class StringArrayUtils {
      * @param valueToRemove value to remove from array
      * @return array with identical contents excluding values of `value`
      */ // TODO
-    public static String[] removeValue(String[] array, String valueToRemove) {
-        ArrayList<String> newValue = new ArrayList<>();
-        for (String s : array){
-            if (s != valueToRemove){
-                newValue.add(s);
+//    public static String[] removeValue(String[] array, String valueToRemove) {
+//        ArrayList<String> newValue = new ArrayList<>();
+//        for (String s : array){
+//            if (s != valueToRemove){
+//                newValue.add(s);
+//            }
+//        }
+//        String[] results = new String[newValue.size()];
+//        results = newValue.toArray(results);
+//        return results;
+//    }
+
+    public static String[] removeValue(String[] array, String valueToRemove){
+        String[] buffer = new String[array.length];
+        int inputArrayIndex = 0;
+        int outputArrayLength = 0;
+        while (inputArrayIndex < array.length){
+            if (array[inputArrayIndex].equals(valueToRemove)) {
+                inputArrayIndex++;
+                continue;
             }
+            else {
+                buffer[outputArrayLength] = array[inputArrayIndex];
+            }
+            inputArrayIndex++;
+            outputArrayLength++;
         }
-        String[] results = new String[newValue.size()];
-        results = newValue.toArray(results);
-        return results;
+        String[] output = Arrays.copyOfRange(buffer, 0, outputArrayLength);
+        return output;
     }
 
     /**
      * @param array array of chars
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
+//    public static String[] removeConsecutiveDuplicates(String[] array) {
+//        ArrayList<String> results = new ArrayList<>();
+//        String first = "";
+//        for (String s : array) {
+//            if (s != first) {
+//                results.add(s);
+//                first = s;
+//            }
+//        }
+//        String[] removed = new String[results.size()];
+//        removed = results.toArray(removed);
+//        return removed;
+//    }
+
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        ArrayList<String> results = new ArrayList<>();
-        String first = "";
-        for (String s : array) {
-            if (s != first) {
-                results.add(s);
-                first = s;
+        String[] buffer = new String[array.length];
+        int arrayIndex = 0;
+        int outputLength = 0;
+        String lastSeen = null;
+        while (arrayIndex < array.length){
+            if (array[arrayIndex] != lastSeen){
+                buffer[outputLength] = array[arrayIndex];
+                lastSeen = array[arrayIndex];
+                arrayIndex++;
+                outputLength++;
+            }
+            else {
+                arrayIndex++;
             }
         }
-        String[] removed = new String[results.size()];
-        removed = results.toArray(removed);
-        return removed;
+        String[] output = Arrays.copyOfRange(buffer, 0, outputLength);
+        return output;
     }
 
     /**
