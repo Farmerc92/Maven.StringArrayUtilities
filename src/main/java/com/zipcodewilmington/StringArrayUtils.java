@@ -79,25 +79,45 @@ public class StringArrayUtils {
      * @param array array of String objects
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
+//    public static boolean isPangramic(String[] array) {
+//        ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'));
+//        ArrayList<char[]> newArray = new ArrayList<>();
+//        for (String s : array) {
+//            newArray.add(s.toCharArray());
+//        }
+//        for (char[] word : newArray){
+//            for (char letter : word) {
+//                if (alphabet.contains(letter)){
+//                    int index = alphabet.lastIndexOf(letter);
+//                    alphabet.remove(index);
+//                }
+//                else if (alphabet.contains(Character.toLowerCase(letter))) {
+//                    int index = alphabet.lastIndexOf(Character.toLowerCase(letter));
+//                    alphabet.remove(index);
+//                }
+//            }
+//        }
+//        return alphabet.size() == 0;
+//    }
+
     public static boolean isPangramic(String[] array) {
-        ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'));
-        ArrayList<char[]> newArray = new ArrayList<>();
-        for (String s : array) {
-            newArray.add(s.toCharArray());
-        }
-        for (char[] word : newArray){
-            for (char letter : word) {
-                if (alphabet.contains(letter)){
-                    int index = alphabet.lastIndexOf(letter);
-                    alphabet.remove(index);
-                }
-                else if (alphabet.contains(Character.toLowerCase(letter))) {
-                    int index = alphabet.lastIndexOf(Character.toLowerCase(letter));
-                    alphabet.remove(index);
+        boolean[] alphabetCount = new boolean[26];
+        int alphabetIndex = 0;
+        for (String s : array){
+            String str = s.toLowerCase();
+            for (int i = 0; i < str.length(); i++){
+                if ('a' <= str.charAt(i) && str.charAt(i) <= 'z') {
+                    alphabetIndex = str.charAt(i) - 'a';
+                    alphabetCount[alphabetIndex] = true;
                 }
             }
         }
-        return alphabet.size() == 0;
+        for (boolean b : alphabetCount){
+            if (!b){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
