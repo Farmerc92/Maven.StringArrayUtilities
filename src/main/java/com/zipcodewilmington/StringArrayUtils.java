@@ -1,6 +1,5 @@
 package com.zipcodewilmington;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -61,8 +60,7 @@ public class StringArrayUtils {
         String[] reverseOrder = new String[array.length];
         int reverseCount = 1;
         for(String s : array){
-            reverseOrder[array.length - reverseCount] = s;
-            reverseCount++;
+            reverseOrder[array.length - reverseCount++] = s;
         }
         return reverseOrder;
     }
@@ -79,36 +77,13 @@ public class StringArrayUtils {
      * @param array array of String objects
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
-//    public static boolean isPangramic(String[] array) {
-//        ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'));
-//        ArrayList<char[]> newArray = new ArrayList<>();
-//        for (String s : array) {
-//            newArray.add(s.toCharArray());
-//        }
-//        for (char[] word : newArray){
-//            for (char letter : word) {
-//                if (alphabet.contains(letter)){
-//                    int index = alphabet.lastIndexOf(letter);
-//                    alphabet.remove(index);
-//                }
-//                else if (alphabet.contains(Character.toLowerCase(letter))) {
-//                    int index = alphabet.lastIndexOf(Character.toLowerCase(letter));
-//                    alphabet.remove(index);
-//                }
-//            }
-//        }
-//        return alphabet.size() == 0;
-//    }
-
     public static boolean isPangramic(String[] array) {
         boolean[] alphabetCount = new boolean[26];
-        int alphabetIndex = 0;
         for (String s : array){
             String str = s.toLowerCase();
             for (int i = 0; i < str.length(); i++){
                 if ('a' <= str.charAt(i) && str.charAt(i) <= 'z') {
-                    alphabetIndex = str.charAt(i) - 'a';
-                    alphabetCount[alphabetIndex] = true;
+                    alphabetCount[str.charAt(i) - 'a'] = true;
                 }
             }
         }
@@ -126,13 +101,13 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        int numberOfOccurences = 0;
+        int numberOfOccurrences = 0;
         for (String s : array) {
             if (s == value){
-                numberOfOccurences++;
+                numberOfOccurrences++;
             }
         }
-        return numberOfOccurences;
+        return numberOfOccurrences;
     }
 
     /**
@@ -140,34 +115,17 @@ public class StringArrayUtils {
      * @param valueToRemove value to remove from array
      * @return array with identical contents excluding values of `value`
      */ // TODO
-//    public static String[] removeValue(String[] array, String valueToRemove) {
-//        ArrayList<String> newValue = new ArrayList<>();
-//        for (String s : array){
-//            if (s != valueToRemove){
-//                newValue.add(s);
-//            }
-//        }
-//        String[] results = new String[newValue.size()];
-//        results = newValue.toArray(results);
-//        return results;
-//    }
-
     public static String[] removeValue(String[] array, String valueToRemove){
         String[] buffer = new String[array.length];
-        int inputArrayIndex = 0;
-        int outputArrayLength = 0;
-        while (inputArrayIndex < array.length){
-            if (array[inputArrayIndex].equals(valueToRemove)) {
-                inputArrayIndex++;
-                continue;
-            }
-            else {
-                buffer[outputArrayLength] = array[inputArrayIndex];
-            }
-            inputArrayIndex++;
-            outputArrayLength++;
+        int outputLength = 0;
+        for (String s : array) {
+            if (!s.equals(valueToRemove))
+                buffer[outputLength++] = s;
         }
-        String[] output = Arrays.copyOfRange(buffer, 0, outputArrayLength);
+        String[] output = new String[outputLength];
+        for(int i = 0; i < outputLength; i++){
+            output[i] = buffer[i];
+        }
         return output;
     }
 
@@ -175,37 +133,19 @@ public class StringArrayUtils {
      * @param array array of chars
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
-//    public static String[] removeConsecutiveDuplicates(String[] array) {
-//        ArrayList<String> results = new ArrayList<>();
-//        String first = "";
-//        for (String s : array) {
-//            if (s != first) {
-//                results.add(s);
-//                first = s;
-//            }
-//        }
-//        String[] removed = new String[results.size()];
-//        removed = results.toArray(removed);
-//        return removed;
-//    }
-
     public static String[] removeConsecutiveDuplicates(String[] array) {
         String[] buffer = new String[array.length];
-        int arrayIndex = 0;
         int outputLength = 0;
-        String lastSeen = null;
-        while (arrayIndex < array.length){
-            if (array[arrayIndex] != lastSeen){
-                buffer[outputLength] = array[arrayIndex];
-                lastSeen = array[arrayIndex];
-                arrayIndex++;
+        for(int i = 0; i < array.length; i++){
+            if (i == 0 || !array[i].equals(array[i-1])) {
+                buffer[outputLength] = array[i];
                 outputLength++;
             }
-            else {
-                arrayIndex++;
-            }
         }
-        String[] output = Arrays.copyOfRange(buffer, 0, outputLength);
+        String[] output = new String[outputLength];
+        for(int i = 0; i < outputLength; i++){
+            output[i] = buffer[i];
+        }
         return output;
     }
 
@@ -213,54 +153,26 @@ public class StringArrayUtils {
      * @param array array of chars
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
-//    public static String[] packConsecutiveDuplicates(String[] array) {
-//        ArrayList<String> results = new ArrayList<>();
-//        String lastString = null;
-//        String holder = "";
-//        for(String s : array){
-//            if (s != lastString){
-//                if (holder == ""){
-//                    holder = s;
-//                }
-//                else {
-//                    results.add(holder);
-//                    holder = s;
-//                }
-//            }
-//            else {
-//                holder += s;
-//            }
-//            lastString = s;
-//        }
-//        results.add(holder);
-//        String[] removed = new String[results.size()];
-//        removed = results.toArray(removed);
-//        return removed;
-//    }
-
     public static String[] packConsecutiveDuplicates(String[] array) {
         String[] buffer = new String[array.length];
-        int i = 0;
-        int j = 0;
-        while (i < array.length) {
-            String current = array[i];
-            String prev = null;
-            if (i == 0) {
-                buffer[j] = current;
-                i++;
-                continue;
-            } else {
-                prev = array[i - 1];
-                if (prev == current) {
-                    buffer[j] += current;
-                } else {
-                    j++;
-                    buffer[j] = current;
-                }
+        String lastSeen = array[0];
+        String stringToAdd = "";
+        int outputLength = 0;
+        for(int i = 0; i < array.length; i++){
+            if (array[i].equals(lastSeen))
+                stringToAdd += lastSeen;
+            else {
+                buffer[outputLength++] = stringToAdd;
+                System.out.println(stringToAdd);
+                lastSeen = array[i];
+                stringToAdd = array[i];
             }
-            i ++;
         }
-        String[] output = Arrays.copyOfRange(buffer, 0, j+1);
+        buffer[outputLength++] = stringToAdd;
+        String[] output = new String[outputLength];
+        for(int i = 0; i < outputLength; i++){
+            output[i] = buffer[i];
+        }
         return output;
     }
 
